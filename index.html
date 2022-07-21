@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Space invaders</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body onkeyup="handleKey(event)" onload="init()">
+  <h1>SPACE INVADERS</h1>
+
+  <button onmousedown="init()">restart</button>
+  <p class="score"></p>
+
+  <table>
+    <tbody class="board"></tbody>
+  </table>
+
+  
+  <p class="win">👑 YOU WON!👑<br><button onmousedown="init()">restart</button></p>
+
+  
+  <script src="js/util.js"></script>
+  <script src="js/hero.js"></script>
+  <script src="js/game.js"></script>
+  <script src="js/aliens.js"></script>
+</body>
+
+</html>

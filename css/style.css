@@ -1,0 +1,49 @@
+*{
+    text-align: center;
+    margin: auto;
+}
+
+h1 {margin-bottom: 30px;}
+
+body {background-color: rgb(3, 12, 73); color:white}
+
+.cell {width:30px; height:30px; text-align: center; background-color: antiquewhite;}
+.floor {background-color: rgb(195, 93, 93)}
+.wall {background-color: rgb(71, 0, 97)}
+
+.score {
+    display: inline-block;
+    font-size: 22px;
+    color: rgb(24, 24, 68);
+    background-color: rgb(234, 156, 156);
+    width: 130px;
+    margin-bottom: 15px;
+    margin-left: 200px;
+}
+
+
+
+.win {
+    margin: auto;
+    margin-top: 10px;
+    max-width: 360px;
+    text-align: center;
+    font-size: 40px;
+    background-color: rgb(9, 241, 28);
+    color: rgb(5, 34, 121);
+    border: 2px solid black;
+}
+
+button{
+    font-size: 20px;
+    background-color: aquamarine;
+    margin-bottom: 5px;
+}
+
+button:hover{
+    cursor: pointer;
+    background-color: aqua;
+}
+
+
+
