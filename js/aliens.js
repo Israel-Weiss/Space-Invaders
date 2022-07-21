@@ -1,7 +1,8 @@
 'use strict'
 
-const ALIEN_SPEED = 400
+var ALIEN_SPEED = 500
 var gIntervalAliens
+var gTimeOutlAliens
 
 var gAliensTopRowIdx
 var gAliensBottomRowIdx
@@ -16,7 +17,8 @@ function createAliens(board) {
     }
 }
 
-function handleAlienHit(pos) {
+function handleAlienHit(pos, sound = true) {
+    if (sound) playSoundHit()
     clearInterval(gLaserInterval)
     gGame.aliensCount--
 
@@ -24,15 +26,9 @@ function handleAlienHit(pos) {
     updateCell(pos)
 
     gHero.isShoot = false
+    if (gHero.superMode) stopSuperMode()
     if (gGame.aliensCount === 0) gameDone()
     if (IsEmptyRow(gBoard, gAliensBottomRowIdx)) gAliensBottomRowIdx--
-}
-
-function IsEmptyRow(board, rowIdx) {
-    for (var j = 1; j < board[rowIdx].length - 1; j++) {
-        if (board[rowIdx][j].gameObject === ALIEN) return
-    }
-    return true
 }
 
 function moveAliensRight(board) {
@@ -41,7 +37,7 @@ function moveAliensRight(board) {
         shiftBoardRight(board, gAliensBottomRowIdx, gAliensTopRowIdx)
         if (checkRightEdge(board, gAliensTopRowIdx, gAliensBottomRowIdx)) {
             clearInterval(gIntervalAliens)
-            setTimeout(() => {
+            gTimeOutlAliens = setTimeout(() => {
                 shiftBoardDown(board, gAliensBottomRowIdx, gAliensTopRowIdx)
                 moveAliensLeft(board)
             }, ALIEN_SPEED)
@@ -55,7 +51,7 @@ function moveAliensLeft(board) {
         shiftBoardLeft(board, gAliensBottomRowIdx, gAliensTopRowIdx)
         if (checkLeftEdge(board, gAliensTopRowIdx, gAliensBottomRowIdx)) {
             clearInterval(gIntervalAliens)
-            setTimeout(() => {
+            gTimeOutlAliens = setTimeout(() => {
                 shiftBoardDown(board, gAliensBottomRowIdx, gAliensTopRowIdx)
                 moveAliensRight(board)
             }, ALIEN_SPEED)
@@ -95,9 +91,9 @@ function shiftBoardDown(board, fromI, toI) {
             updateCell({ i: i + 1, j }, ALIEN, ALIEN)
         }
     }
-    gAliensTopRowIdx++
     gAliensBottomRowIdx++
     if (gAliensBottomRowIdx === board.length - 2) gameOver()
+    if (IsEmptyRow(gBoard, gAliensTopRowIdx)) gAliensTopRowIdx++
 }
 
 function checkRightEdge(board, fromI, toI) {
@@ -110,4 +106,11 @@ function checkLeftEdge(board, fromI, toI) {
     for (var i = fromI; i <= toI; i++) {
         if (board[i][1].gameObject === ALIEN) return true
     }
+}
+
+function IsEmptyRow(board, rowIdx) {
+    for (var j = 1; j < board[rowIdx].length - 1; j++) {
+        if (board[rowIdx][j].gameObject === ALIEN) return
+    }
+    return true
 }

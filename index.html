@@ -10,7 +10,12 @@
 <body onkeyup="handleKey(event)" onload="init()">
   <h1>SPACE INVADERS</h1>
 
-  <button onmousedown="init()">restart</button>
+  <button onmousedown="levelGame(1)">Easy</button>
+  <button onmousedown="levelGame(2)">Normal</button>
+  <button onmousedown="levelGame(3)">Hard</button>
+  <button onmousedown="restartGame()">start</button>
+  <br>
+  <p class="super-mode"></p>
   <p class="score"></p>
 
   <table>
@@ -23,6 +28,7 @@
   <script src="js/hero.js"></script>
   <script src="js/game.js"></script>
   <script src="js/aliens.js"></script>
+  <script src="js/sound.js"></script>
 </body>
 
 </html>

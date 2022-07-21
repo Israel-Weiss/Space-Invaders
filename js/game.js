@@ -1,11 +1,11 @@
 'use strict'
 
-const BOARD_SIZE = 14
-const ALIENS_ROW_LENGTH = 8
-const ALIENS_ROW_COUNT = 3
+var BOARD_SIZE = 14
+var ALIENS_ROW_LENGTH = 8
+var ALIENS_ROW_COUNT = 3
 const HERO = '🤖'
 const ALIEN = '👾'
-const LASER = '📍'
+var LASER = '📍'
 const SKY = 'SKY'
 const WALL = 'WALL'
 const FLOOR = 'FLOOR'
@@ -15,18 +15,61 @@ var gGame
 
 function init() {
 	clearInterval(gIntervalAliens)
-	gGame = { isOn: true, aliensCount: 0, score: 0 }
-	gGame.aliensCount = 0
-	var board = gBoard = createBoard()
-	createHero(board)
-	createAliens(board)
-	renderBoard(board)
+	clearTimeout(gTimeOutlAliens)
+	gGame = { isOn: false, aliensCount: 0, score: 0, }
+
+	gBoard = createBoard()
+	createHero(gBoard)
+	createAliens(gBoard)
+	renderBoard(gBoard)
+
 	gGame.score = 0
 	document.querySelector('.modal').style.display = 'none'
 	document.querySelector('.score').innerText = 'Score: ' + gGame.score
+	document.querySelector('.super-mode').innerText = 'Super mode: ' + gHero.superModeCount
 	gAliensTopRowIdx = 0
-    gAliensBottomRowIdx = gAliensTopRowIdx + (ALIENS_ROW_COUNT - 1)
-	moveAliensLeft(board)
+	gAliensBottomRowIdx = gAliensTopRowIdx + (ALIENS_ROW_COUNT - 1)
+}
+
+function levelGame(level) {
+	if (level === 1) {
+
+		BOARD_SIZE = 10
+		ALIENS_ROW_LENGTH = 6
+		ALIENS_ROW_COUNT = 2
+		ALIEN_SPEED = 800
+		LASER_SPEED = 120
+
+	} else if (level === 2) {
+
+		BOARD_SIZE = 14
+		ALIENS_ROW_LENGTH = 8
+		ALIENS_ROW_COUNT = 3
+		ALIEN_SPEED = 500
+		LASER_SPEED = 80
+
+	} else if (level = 1) {
+
+		BOARD_SIZE = 16
+		ALIENS_ROW_LENGTH = 10
+		ALIENS_ROW_COUNT = 4
+		ALIEN_SPEED = 300
+		LASER_SPEED = 40
+	} 
+	
+	init()
+}
+
+function restartGame() {
+	init()
+	startGame()
+}
+
+function startGame() {
+	if (gGame.isOn) return
+	gGame.isOn = true
+	playSoundStart()
+	moveAliensLeft(gBoard)
 }
 
 function createBoard() {
@@ -86,18 +129,20 @@ function updateScore(diff) {
 }
 
 function gameDone() {
+	playSoundWin()
 	gGame.isOn = false
 	var elModal = document.querySelector('.modal')
-	elModal.innerHTML = '👑 YOU WON!👑<br><button onmousedown="init()">restart</button>'
+	elModal.innerHTML = '👑 YOU WON!👑<br><button onmousedown="restartGame()">restart</button>'
 	elModal.style.backgroundColor = 'rgb(9, 241, 28)'
 	elModal.style.color = 'rgb(5, 34, 121)'
 	elModal.style.display = 'block'
 }
 
 function gameOver() {
+	playSoundLos()
 	gGame.isOn = false
 	var elModal = document.querySelector('.modal')
-	elModal.innerHTML = 'GAME OVER!!<br><button onmousedown="init()">restart</button>'
+	elModal.innerHTML = 'GAME OVER!!<br><button onmousedown="restartGame()">restart</button>'
 	elModal.style.backgroundColor = 'red'
 	elModal.style.color = 'yellow'
 	elModal.style.display = 'block'

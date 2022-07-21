@@ -3,9 +3,9 @@
     margin: auto;
 }
 
-h1 {margin-bottom: 30px;}
+h1 {margin-bottom: 10px; color: aliceblue;}
 
-body {background-color: rgb(3, 12, 73); color:white}
+body {background-color: rgb(3, 12, 73);}
 
 .cell {width:30px; height:30px; text-align: center; background-color: antiquewhite;}
 .floor {background-color: rgb(195, 93, 93)}
@@ -17,16 +17,23 @@ body {background-color: rgb(3, 12, 73); color:white}
     color: rgb(24, 24, 68);
     background-color: rgb(234, 156, 156);
     width: 130px;
-    margin-bottom: 15px;
-    margin-left: 200px;
+    margin-left: 180px;
+    margin-bottom: 5px;
 }
 
-
+.super-mode {
+    display: inline-block;
+    font-size: 22px;
+    color: rgb(24, 24, 68);
+    background-color: rgb(234, 156, 156);
+    width: 150px;
+}
 
 .modal {
     margin: auto;
     margin-top: 10px;
     max-width: 360px;
+    max-height: 100px;
     text-align: center;
     font-size: 40px;
     border: 2px solid rgb(210 202 202);
@@ -35,7 +42,7 @@ body {background-color: rgb(3, 12, 73); color:white}
 button{
     font-size: 20px;
     background-color: aquamarine;
-    margin-bottom: 5px;
+    margin-bottom: 15px;
 }
 
 button:hover{
