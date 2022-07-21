@@ -23,15 +23,13 @@ body {background-color: rgb(3, 12, 73); color:white}
 
 
 
-.win {
+.modal {
     margin: auto;
     margin-top: 10px;
     max-width: 360px;
     text-align: center;
     font-size: 40px;
-    background-color: rgb(9, 241, 28);
-    color: rgb(5, 34, 121);
-    border: 2px solid black;
+    border: 2px solid rgb(210 202 202);
 }
 
 button{

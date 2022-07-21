@@ -1,6 +1,6 @@
 'use strict'
 
-const LASER_SPEED = 30
+const LASER_SPEED = 50
 
 var gHero
 var gLaserInterval
@@ -27,6 +27,9 @@ function handleKey(ev) {
 		case ' ':
 			shoot(gHero.pos)
 			break
+		case 'n':
+			clearNegs(gBoard, gLaserPos)
+			break
 	}
 }
 
@@ -48,6 +51,11 @@ function shoot(pos) {
 	var nextPos = { i: pos.i - 1, j: pos.j }
 	updateCell(nextPos, LASER, LASER)
 	gLaserPos = nextPos
+
+	if (gBoard[nextPos.i][nextPos.j].gameObject === ALIEN) {
+		handleAlienHit(nextPos)
+		return
+	}
 
 	gLaserInterval = setInterval(() => {
 		blinkLaser(gLaserPos)
@@ -73,3 +81,22 @@ function blinkLaser(pos) {
 }
 
 
+function clearNegs(board, pos) {
+	if (!gHero.isShoot) return
+	gHero.isShoot = false
+	clearInterval(gLaserInterval)
+	updateCell(pos)
+
+    for (var i = pos.i - 1; i <= pos.i + 1; i++) {
+        if (i < 0 || i === board.length - 2) continue
+        for (var j = pos.j - 1; j <= pos.j + 1; j++) {
+            if (j < 1 || j === board[i].length - 1) continue
+            if (i === pos.i && j === pos.j) continue
+			console.log(i, j);
+
+            if (board[i][j].gameObject === ALIEN) {
+				handleAlienHit({i, j})
+            }
+        }
+    }
+}

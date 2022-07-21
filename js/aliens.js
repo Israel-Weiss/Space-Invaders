@@ -1,6 +1,6 @@
 'use strict'
 
-const ALIEN_SPEED = 500
+const ALIEN_SPEED = 400
 var gIntervalAliens
 
 var gAliensTopRowIdx
@@ -36,6 +36,7 @@ function IsEmptyRow(board, rowIdx) {
 }
 
 function moveAliensRight(board) {
+    if (!gGame.isOn)return
     gIntervalAliens = setInterval(() => {
         shiftBoardRight(board, gAliensBottomRowIdx, gAliensTopRowIdx)
         if (checkRightEdge(board, gAliensTopRowIdx, gAliensBottomRowIdx)) {
@@ -49,6 +50,7 @@ function moveAliensRight(board) {
 }
 
 function moveAliensLeft(board) {
+    if (!gGame.isOn)return
     gIntervalAliens = setInterval(() => {
         shiftBoardLeft(board, gAliensBottomRowIdx, gAliensTopRowIdx)
         if (checkLeftEdge(board, gAliensTopRowIdx, gAliensBottomRowIdx)) {
@@ -95,7 +97,7 @@ function shiftBoardDown(board, fromI, toI) {
     }
     gAliensTopRowIdx++
     gAliensBottomRowIdx++
-    if (gAliensBottomRowIdx === board[0].length - 2) gameOver()
+    if (gAliensBottomRowIdx === board.length - 2) gameOver()
 }
 
 function checkRightEdge(board, fromI, toI) {
@@ -109,4 +111,3 @@ function checkLeftEdge(board, fromI, toI) {
         if (board[i][1].gameObject === ALIEN) return true
     }
 }
-

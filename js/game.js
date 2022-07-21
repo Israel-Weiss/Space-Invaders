@@ -22,7 +22,7 @@ function init() {
 	createAliens(board)
 	renderBoard(board)
 	gGame.score = 0
-	document.querySelector('.win').style.display = 'none'
+	document.querySelector('.modal').style.display = 'none'
 	document.querySelector('.score').innerText = 'Score: ' + gGame.score
 	gAliensTopRowIdx = 0
     gAliensBottomRowIdx = gAliensTopRowIdx + (ALIENS_ROW_COUNT - 1)
@@ -86,14 +86,19 @@ function updateScore(diff) {
 }
 
 function gameDone() {
-	clearInterval(gIntervalAliens)
-	document.querySelector('.win').style.display = 'block'
 	gGame.isOn = false
+	var elModal = document.querySelector('.modal')
+	elModal.innerHTML = '👑 YOU WON!👑<br><button onmousedown="init()">restart</button>'
+	elModal.style.backgroundColor = 'rgb(9, 241, 28)'
+	elModal.style.color = 'rgb(5, 34, 121)'
+	elModal.style.display = 'block'
 }
 
 function gameOver() {
-	clearInterval(gIntervalAliens)
-	document.querySelector('.win').style.display = 'block'
 	gGame.isOn = false
+	var elModal = document.querySelector('.modal')
+	elModal.innerHTML = 'GAME OVER!!<br><button onmousedown="init()">restart</button>'
+	elModal.style.backgroundColor = 'red'
+	elModal.style.color = 'yellow'
+	elModal.style.display = 'block'
 }
-
