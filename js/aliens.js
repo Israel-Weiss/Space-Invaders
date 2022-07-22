@@ -2,11 +2,11 @@
 
 var ALIEN_SPEED = 500
 var gIntervalAliens
-var gTimeOutlAliens
 
 var gAliensTopRowIdx
 var gAliensBottomRowIdx
-var gIsAlienFreeze = true
+var gIsAlienFreeze = false
+var gTimeuotRelease
 
 function createAliens(board) {
     for (var i = 0; i < ALIENS_ROW_COUNT; i++) {
@@ -18,7 +18,7 @@ function createAliens(board) {
 }
 
 function handleAlienHit(pos, sound = true) {
-    if (sound) playSoundHit()
+    if (sound) playSoundAlienHit()
     clearInterval(gLaserInterval)
     gGame.aliensCount--
 
@@ -32,12 +32,12 @@ function handleAlienHit(pos, sound = true) {
 }
 
 function moveAliensRight(board) {
-    if (!gGame.isOn)return
+    if (!gGame.isOn) return
     gIntervalAliens = setInterval(() => {
         shiftBoardRight(board, gAliensBottomRowIdx, gAliensTopRowIdx)
         if (checkRightEdge(board, gAliensTopRowIdx, gAliensBottomRowIdx)) {
             clearInterval(gIntervalAliens)
-            gTimeOutlAliens = setTimeout(() => {
+            gIntervalAliens = setTimeout(() => {
                 shiftBoardDown(board, gAliensBottomRowIdx, gAliensTopRowIdx)
                 moveAliensLeft(board)
             }, ALIEN_SPEED)
@@ -46,12 +46,12 @@ function moveAliensRight(board) {
 }
 
 function moveAliensLeft(board) {
-    if (!gGame.isOn)return
+    if (!gGame.isOn) return
     gIntervalAliens = setInterval(() => {
         shiftBoardLeft(board, gAliensBottomRowIdx, gAliensTopRowIdx)
         if (checkLeftEdge(board, gAliensTopRowIdx, gAliensBottomRowIdx)) {
             clearInterval(gIntervalAliens)
-            gTimeOutlAliens = setTimeout(() => {
+            gIntervalAliens = setTimeout(() => {
                 shiftBoardDown(board, gAliensBottomRowIdx, gAliensTopRowIdx)
                 moveAliensRight(board)
             }, ALIEN_SPEED)
@@ -61,6 +61,7 @@ function moveAliensLeft(board) {
 }
 
 function shiftBoardRight(board, fromI, toI) {
+    if (gIsAlienFreeze) return
     for (var i = fromI; i >= toI; i--) {
         for (var j = board[0].length - 3; j > 0; j--) {
             if (board[i][j].gameObject !== ALIEN) continue
@@ -72,6 +73,7 @@ function shiftBoardRight(board, fromI, toI) {
 }
 
 function shiftBoardLeft(board, fromI, toI) {
+    if (gIsAlienFreeze) return
     for (var i = fromI; i >= toI; i--) {
         for (var j = 2; j < board[0].length - 1; j++) {
             if (board[i][j].gameObject !== ALIEN) continue
@@ -83,6 +85,7 @@ function shiftBoardLeft(board, fromI, toI) {
 }
 
 function shiftBoardDown(board, fromI, toI) {
+    if (gIsAlienFreeze) return
     for (var i = fromI; i >= toI; i--) {
         for (var j = 1; j < board[0].length - 1; j++) {
             if (board[i][j].gameObject !== ALIEN) continue
@@ -114,3 +117,13 @@ function IsEmptyRow(board, rowIdx) {
     }
     return true
 }
+
+function freezeEliens() {
+    gIsAlienFreeze = true
+    gTimeuotRelease = setTimeout(() => {
+        playSoundRelease()
+        gIsAlienFreeze = false
+    }, 5000)
+}
+
+

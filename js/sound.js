@@ -5,7 +5,12 @@ function playSoundStart() {
     sound.play()
 }
 
-function playSoundHit() {
+function playSoundAlienHit() {
+    var sound = new Audio("audio/zudon.mp3")
+    sound.play()
+}
+
+function playSoundCandieHit() {
     var sound = new Audio("audio/glocken.mp3")
     sound.play()
 }
@@ -27,5 +32,20 @@ function playSoundWin() {
 
 function playSoundLos() {
     var sound = new Audio("audio/piano.mp3")
+    sound.play()
+}
+
+function playSoundRelease() {
+    var sound = new Audio("audio/pikopiko.mp3")
+    sound.play()
+}
+
+function playSoundShoot() {
+    var sound = new Audio("audio/dosi.mp3")
+    sound.play()
+}
+
+function playSoundSuperMode() {
+    var sound = new Audio("audio/fall.mp3")
     sound.play()
 }

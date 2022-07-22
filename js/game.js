@@ -6,16 +6,19 @@ var ALIENS_ROW_COUNT = 3
 const HERO = '🤖'
 const ALIEN = '👾'
 var LASER = '📍'
+var CANDIE = 'CANDIE'
 const SKY = 'SKY'
 const WALL = 'WALL'
 const FLOOR = 'FLOOR'
 
+var CANDIE_IMG = '<img src="img/candy.png" />'
+
 var gBoard
 var gGame
+var gIntervalCandie
+var gTimeoutCandie
 
 function init() {
-	clearInterval(gIntervalAliens)
-	clearTimeout(gTimeOutlAliens)
 	gGame = { isOn: false, aliensCount: 0, score: 0, }
 
 	gBoard = createBoard()
@@ -55,12 +58,21 @@ function levelGame(level) {
 		ALIENS_ROW_COUNT = 4
 		ALIEN_SPEED = 300
 		LASER_SPEED = 40
-	} 
-	
+	}
+	clearInterval(gIntervalAliens)
+	clearInterval(gIntervalCandie)
+	clearTimeout(gTimeoutCandie)
+	clearTimeout(gTimeuotRelease)
+
 	init()
 }
 
 function restartGame() {
+	clearInterval(gIntervalAliens)
+	clearInterval(gIntervalCandie)
+	clearTimeout(gTimeoutCandie)
+	clearTimeout(gTimeuotRelease)
+	
 	init()
 	startGame()
 }
@@ -70,6 +82,9 @@ function startGame() {
 	gGame.isOn = true
 	playSoundStart()
 	moveAliensLeft(gBoard)
+	gIntervalCandie = setInterval(() => {
+		candieAppear(gBoard, gAliensBottomRowIdx + 1)
+	}, 10 * 1000)
 }
 
 function createBoard() {
@@ -117,12 +132,6 @@ function updateCell(pos, gameObject = null, display = '') {
 	document.querySelector(cellSelector).innerHTML = display
 }
 
-function renderCell(location, value) {
-	var cellSelector = '.cell-' + location.i + '-' + location.j
-	var elCell = document.querySelector(cellSelector)
-	elCell.innerHTML = value
-}
-
 function updateScore(diff) {
 	gGame.score += diff
 	document.querySelector('.score').innerText = 'Score: ' + gGame.score
@@ -136,6 +145,9 @@ function gameDone() {
 	elModal.style.backgroundColor = 'rgb(9, 241, 28)'
 	elModal.style.color = 'rgb(5, 34, 121)'
 	elModal.style.display = 'block'
+	clearInterval(gIntervalCandie)
+	clearTimeout(gTimeoutCandie)
+	clearTimeout(gTimeuotRelease)
 }
 
 function gameOver() {
@@ -146,4 +158,17 @@ function gameOver() {
 	elModal.style.backgroundColor = 'red'
 	elModal.style.color = 'yellow'
 	elModal.style.display = 'block'
+	clearInterval(gIntervalCandie)
+	clearTimeout(gTimeoutCandie)
+	clearTimeout(gTimeuotRelease)
+}
+
+function candieAppear(board, row) {
+	if (row >= board.length - 3) return
+	var pos = { i: row, j: getRandomIntInclusive(1, board.length) }
+	updateCell(pos, CANDIE, CANDIE_IMG)
+
+	gTimeoutCandie = setTimeout(() => {
+		updateCell(pos)
+	}, 5000)
 }

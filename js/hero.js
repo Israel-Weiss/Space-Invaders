@@ -49,16 +49,16 @@ function moveHero(dir) {
 
 function shoot(pos) {
 	if (gHero.isShoot) return
+	playSoundShoot()
 	gHero.isShoot = true
 
 	var nextPos = { i: pos.i - 1, j: pos.j }
-	updateCell(nextPos, LASER, LASER)
-	gLaserPos = nextPos
-
 	if (gBoard[nextPos.i][nextPos.j].gameObject === ALIEN) {
 		handleAlienHit(nextPos)
 		return
 	}
+	updateCell(nextPos, LASER, LASER)
+	gLaserPos = nextPos
 
 	gLaserInterval = setInterval(() => {
 		blinkLaser(gLaserPos)
@@ -76,6 +76,10 @@ function blinkLaser(pos) {
 	var nextPos = { i: pos.i - 1, j: pos.j }
 	if (gBoard[nextPos.i][nextPos.j].gameObject === ALIEN) {
 		handleAlienHit(nextPos)
+		return
+	}
+	if (gBoard[nextPos.i][nextPos.j].gameObject === CANDIE) {
+		handleCandieHit(nextPos)
 		return
 	}
 	updateCell(nextPos, LASER, LASER)
@@ -106,6 +110,7 @@ function clearNegs(board, pos) {
 
 function startSuperMode() {
 	if (!gHero.isShoot || gHero.superMode || !gHero.superModeCount) return
+	playSoundSuperMode()
 	gHero.superMode = true
 	clearInterval(gLaserInterval)
 	gLaserInterval = setInterval(() => {
@@ -118,5 +123,17 @@ function startSuperMode() {
 function stopSuperMode() {
 	gHero.superMode = false
 	LASER = '📍'
+}
+
+function handleCandieHit(pos) {
+    playSoundCandieHit()
+    clearInterval(gLaserInterval)
+
+    updateScore(50)
+    updateCell(pos)
+
+    gHero.isShoot = false
+    if (gHero.superMode) stopSuperMode()
+	freezeEliens()
 }
 
