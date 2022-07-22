@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Space invaders</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body onkeyup="handleKey(event)" onload="init()">
+  <h1>SPACE INVADERS</h1>
+  <p class="text">Please select a level and start, pressing the spacebar laser shooter<br>
+    While shooting, the "n" key blows aliens around, the "x" key doubles the laser speed (up to three times)<br>
+    Candies appear every 10 seconds, hitting them freezes aliens for five seconds and adds fifty points</p>
+
+  <button onmousedown="levelGame(1)">Easy</button>
+  <button onmousedown="levelGame(2)">Normal</button>
+  <button onmousedown="levelGame(3)">Hard</button>
+  <button onmousedown="restartGame()">start</button>
+  <br>
+  <p class="super-mode"></p>
+  <p class="score"></p>
+
+  <table>
+    <tbody class="board"></tbody>
+  </table>
+
+  <p class="modal"></button></p>
+
+  <script src="js/util.js"></script>
+  <script src="js/hero.js"></script>
+  <script src="js/game.js"></script>
+  <script src="js/aliens.js"></script>
+  <script src="js/sound.js"></script>
+</body>
+
+</html>

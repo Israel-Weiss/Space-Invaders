@@ -1,0 +1,81 @@
+* {
+    text-align: center;
+    margin: auto;
+}
+
+h1 {
+    color: aliceblue;
+    font-size: 20px;
+}
+
+.text {
+    color: rgb(220, 220, 231);
+}
+
+body {
+    background-image: url(../img/life-solar-system.jpg);
+    background-size: 100%;
+}
+
+table {
+    background-color: rgba(51, 47, 47, 0.639);
+}
+
+.cell {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    background-color: rgba(56, 52, 48, 0.059);
+}
+
+.cell img {
+    width: 25px;
+    height: auto
+}
+
+.floor {
+    background-color: rgb(151, 97, 34)
+}
+
+.wall {
+    background-color: rgba(71, 0, 97, 0.201)
+}
+
+.score {
+    display: inline-block;
+    font-size: 22px;
+    color: rgb(24, 24, 68);
+    background-color: rgb(234, 156, 156);
+    width: 130px;
+    margin-left: 180px;
+    margin-bottom: 5px;
+}
+
+.super-mode {
+    display: inline-block;
+    font-size: 22px;
+    color: rgb(24, 24, 68);
+    background-color: rgb(234, 156, 156);
+    width: 150px;
+}
+
+.modal {
+    margin: auto;
+    margin-top: 10px;
+    max-width: 360px;
+    max-height: 100px;
+    text-align: center;
+    font-size: 40px;
+    border: 2px solid rgb(210 202 202);
+}
+
+button {
+    font-size: 16px;
+    background-color: aquamarine;
+    margin-bottom: 10px;
+}
+
+button:hover {
+    cursor: pointer;
+    background-color: aqua;
+}
