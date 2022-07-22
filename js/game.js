@@ -11,7 +11,7 @@ const SKY = 'SKY'
 const WALL = 'WALL'
 const FLOOR = 'FLOOR'
 
-var CANDIE_IMG = '<img src="img/candy.png" />'
+var CANDIE_IMG = '<img src=img/candy.png />'
 
 var gBoard
 var gGame
