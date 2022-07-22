@@ -165,7 +165,7 @@ function gameOver() {
 
 function candieAppear(board, row) {
 	if (row >= board.length - 3) return
-	var pos = { i: row, j: getRandomIntInclusive(1, board.length) }
+	var pos = { i: row, j: getRandomInt(1, board.length) }
 	updateCell(pos, CANDIE, CANDIE_IMG)
 
 	gTimeoutCandie = setTimeout(() => {

@@ -47,6 +47,7 @@ function moveAliensRight(board) {
 
 function moveAliensLeft(board) {
     if (!gGame.isOn) return
+    console.log('o');
     gIntervalAliens = setInterval(() => {
         shiftBoardLeft(board, gAliensBottomRowIdx, gAliensTopRowIdx)
         if (checkLeftEdge(board, gAliensTopRowIdx, gAliensBottomRowIdx)) {
