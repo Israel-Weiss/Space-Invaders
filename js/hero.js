@@ -28,9 +28,11 @@ function handleKey(ev) {
 			shoot(gHero.pos)
 			break
 		case 'n':
+		case 'מ':
 			clearNegs(gBoard, gLaserPos)
 			break
 		case 'x':
+		case 'ס':
 			startSuperMode(gBoard, gLaserPos)
 			break
 	}

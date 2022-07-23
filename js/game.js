@@ -148,6 +148,7 @@ function gameDone() {
 	clearInterval(gIntervalCandie)
 	clearTimeout(gTimeoutCandie)
 	clearTimeout(gTimeuotRelease)
+	gIsAlienFreeze = false
 }
 
 function gameOver() {
